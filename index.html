@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #ff6f61;
+            color: white;
+            padding: 1em 0;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        .viewer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 20px;
+            flex-grow: 1;
+            padding: 20px;
+        }
+        .viewer img {
+            max-width: 80%;
+            max-height: 80vh;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+        }
+        .viewer img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+        }
+        .buttons {
+            margin: 20px 0;
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+        .buttons button {
+            background-color: #ff6f61;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 25px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+        .buttons button:hover {
+            background-color: #ff856f;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        footer {
+            text-align: center;
+            padding: 1em 0;
+            background-color: #ff6f61;
+            color: white;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            bottom: 0;
+            z-index: 1000;
+        }
+        footer p {
+            margin: 0;
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>МИ ❤</h1>
+    </header>
+    <div class="viewer">
+        <img id="photo" src="IMG_20240723_152817_624.jpg" alt="Знимка 1">
+    </div>
+    <div class="buttons">
+        <button id="prevButton">Попередня!</button>
+        <button id="nextButton">Наступна!</button>
+    </div>
+    <footer>
+        <p>люблю тебе кохаська</p>
+    </footer>
+    <script>
+        const photos = [
+            'IMG_20240723_151737_664.jpg',
+            'IMG_20240723_151739_647.jpg',
+            'IMG_20240723_151745_479.jpg',
+            'IMG_20240723_151811_169.jpg',
+            'IMG_20240723_151835_598.jpg',
+            'IMG_20240723_151838_128.jpg',
+            'IMG_20240723_151840_331.jpg',
+            'IMG_20240723_151849_439.jpg',
+            'IMG_20240723_151850_965.jpg',
+            'IMG_20240723_151852_565.jpg',
+            'IMG_20240723_151853_916.jpg',
+            'IMG_20240723_151855_543.jpg',
+            'IMG_20240723_151857_017.jpg',
+            'IMG_20240723_151857_792.jpg',
+            'IMG_20240723_151859_155.jpg',
+            'IMG_20240723_151900_616.jpg',
+            'IMG_20240723_151901_906.jpg',
+            'IMG_20240723_151912_685.jpg',
+            'IMG_20240723_151914_269.jpg',
+            'IMG_20240723_151915_244.jpg',
+            'IMG_20240723_151916_959.jpg',
+            'IMG_20240723_151918_208.jpg',
+            'IMG_20240723_151918_768.jpg',
+            'IMG_20240723_151921_033.jpg',
+            'IMG_20240723_151922_593.jpg',
+            'IMG_20240723_151923_582.jpg',
+            'IMG_20240723_151930_258.jpg',
+            'IMG_20240723_151931_694.jpg',
+            'IMG_20240723_151932_769.jpg',
+            'IMG_20240723_151934_506.jpg',
+            'IMG_20240723_151935_513.jpg',
+            'IMG_20240723_151936_255.jpg',
+            'IMG_20240723_151937_604.jpg',
+            'IMG_20240723_151938_990.jpg',
+            'IMG_20240723_151941_039.jpg',
+            'IMG_20240723_151942_517.jpg',
+            'IMG_20240723_151943_081.jpg',
+            'IMG_20240723_151944_201.jpg',
+            'IMG_20240723_151945_679.jpg',
+            'IMG_20240723_151947_098.jpg',
+            'IMG_20240723_151948_230.jpg',
+            'IMG_20240723_151949_764.jpg',
+            'IMG_20240723_151951_449.jpg',
+            'IMG_20240723_152342_215.jpg',
+            'IMG_20240723_152344_175.jpg',
+            'IMG_20240723_152345_842.jpg',
+            'IMG_20240723_152347_107.jpg',
+            'IMG_20240723_152348_226.jpg',
+            'IMG_20240723_152349_869.jpg',
+            'IMG_20240723_152351_440.jpg',
+            'IMG_20240723_152352_573.jpg',
+            'IMG_20240723_152359_754.jpg',
+            'IMG_20240723_152401_599.jpg',
+            'IMG_20240723_152403_516.jpg',
+            'IMG_20240723_152405_021.jpg',
+            'IMG_20240723_152425_346.jpg',
+            'IMG_20240723_152426_939.jpg',
+            'IMG_20240723_152427_779.jpg',
+            'IMG_20240723_152429_321.jpg',
+            'IMG_20240723_152430_592.jpg',
+            'IMG_20240723_152431_784.jpg',
+            'IMG_20240723_152433_182.jpg',
+            'IMG_20240723_152434_841.jpg',
+            'IMG_20240723_152440_939.jpg',
+            'IMG_20240723_152442_248.jpg',
+            'IMG_20240723_152442_835.jpg',
+            'IMG_20240723_152448_691.jpg',
+            'IMG_20240723_152612_877.jpg',
+            'IMG_20240723_152616_541.jpg',
+            'IMG_20240723_152618_056.jpg',
+            'IMG_20240723_152620_129.jpg',
+            'IMG_20240723_152621_745.jpg',
+            'IMG_20240723_152735_409.jpg',
+            'IMG_20240723_152738_034.jpg',
+            'IMG_20240723_152739_749.jpg',
+            'IMG_20240723_152740_872.jpg',
+            'IMG_20240723_152742_715.jpg',
+            'IMG_20240723_152743_579.jpg',
+            'IMG_20240723_152745_431.jpg',
+            'IMG_20240723_152746_852.jpg',
+            'IMG_20240723_152748_190.jpg',
+            'IMG_20240723_152749_864.jpg',
+            'IMG_20240723_152757_795.jpg',
+            'IMG_20240723_152800_339.jpg',
+            'IMG_20240723_152802_537.jpg',
+            'IMG_20240723_152803_363.jpg',
+            'IMG_20240723_152804_860.jpg',
+            'IMG_20240723_152805_412.jpg',
+            'IMG_20240723_152807_977.jpg',
+            'IMG_20240723_152808_460.jpg',
+            'IMG_20240723_152810_879.jpg',
+            'IMG_20240723_152811_659.jpg',
+            'IMG_20240723_152813_784.jpg',
+            'IMG_20240723_152814_954.jpg',
+            'IMG_20240723_152816_007.jpg',
+            'IMG_20240723_152817_624.jpg',
+            'IMG_20240723_152818_692.jpg',
+            'IMG_20240723_152821_324.jpg',
+            'IMG_20240723_152822_083.jpg'
+        ];
+
+        let currentPhotoIndex = 0;
+        const photoElement = document.getElementById('photo');
+        const prevButton = document.getElementById('prevButton');
+        const nextButton = document.getElementById('nextButton');
+
+        function showPhoto(index) {
+            photoElement.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                photoElement.src = photos[index];
+                photoElement.alt = `Знимка ${index + 1}`;
+                photoElement.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentPhotoIndex = (currentPhotoIndex > 0) ? currentPhotoIndex - 1 : photos.length - 1;
+            showPhoto(currentPhotoIndex);
+        });
+
+        nextButton.addEventListener('click', () => {
+            currentPhotoIndex = (currentPhotoIndex < photos.length - 1) ? currentPhotoIndex + 1 : 0;
+            showPhoto(currentPhotoIndex);
+        });
+    </script>
+</body>
+</html>
